@@ -1,0 +1,26 @@
+{
+  "name": "newsscraper",
+  "version": "1.0.0",
+  "description": "new scraper and note takikng app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabrina-li/newsScraper.git"
+  },
+  "keywords": [
+    "mongodb",
+    "mongoose",
+    "express",
+    "cheerio",
+    "axios"
+  ],
+  "author": "Sabrina L",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sabrina-li/newsScraper/issues"
+  },
+  "homepage": "https://github.com/sabrina-li/newsScraper#readme"
+}
