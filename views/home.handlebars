@@ -1,0 +1,17 @@
+<h1>NPR News Scraper</h1>
+
+<ul >
+  {{#each articles}}
+    <li>
+        <h3>{{this.title}}</h3>
+        <p>{{this.summery}}</p>
+        {{#each this.notes}}
+        <p>{{this.notes}}</p>
+        {{/each}}
+    </li>
+    <form action="/api/addnotes/{{this._id}}" method="post">
+        <textarea type="text" name="note"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+  {{/each}}
+</ul>
