@@ -11,17 +11,19 @@ const db = require("./models");
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
-
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+app.use(express.static("public"))
  
 app.get('/',  async (req, res) => {
-    const articles = await db.Article.find({})
-    res.render('home',{articles:articles});
+    const articles = await db.Article.find({}).sort({ publishedOn : -1 });
+    console.log(articles);
+    res.render('articles',{articles:articles});
 });
 
 app.get("/api/scrape", async (req,res)=>{
@@ -31,10 +33,11 @@ app.get("/api/scrape", async (req,res)=>{
     $('div.item-info').each(async (idx,element)=>{
         const title = $(element).find(".title").text();
         const summery = $(element).find(".teaser").text();
-        // console.log(title,summery)
+        const time = $(element).find(".teaser").find("time").text();
+
         // const dbArticle = await db.Article.create({title:title,summery:summery});
         // const update = await db.Article.updateOne({title:"Hong Kong Leader Suspends Controversial Extradition Bill"},{$set:{title:title,summery:summery,notes:[{notes:"asdf"}]}});
-        const dbArticle = await db.Article.findOneAndUpdate({title:title},{$set:{title:title,summery:summery}}, { upsert : true });
+        const dbArticle = await db.Article.findOneAndUpdate({title:title},{$set:{title:title,summery:summery,publishedOn:new Date(time.replace("•",''))}}, { upsert : true , useFindAndModify : true});
     });//TODO: promise.all
     res.send("Scrape Complete");
 });

@@ -11,6 +11,9 @@ const ArticleSchema = new Schema({
     summery:{
         type:String
     },
+    publishedOn:{
+        type:Date
+    },
     notes:{
         type:[NoteSchema]
     }
