@@ -9,6 +9,9 @@ const app = express();
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 const db = require("./models");
 
+const port = process.env.PORT || 8080;
+
+
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.engine('handlebars', exphbs());
@@ -65,4 +68,4 @@ app.delete("/api/:articleid/:noteid", async (req,res,next)=>{
 
 
  
-app.listen(3000);
+app.listen(port);
