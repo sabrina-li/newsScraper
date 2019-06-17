@@ -1,12 +1,9 @@
-<h1>NPR News Scraper</h1>
-
-<ul >
+<ul>
   {{#each articles as |value key|}}
     <li>
         <h3>{{this.title}}</h3>
         <p>{{this.summery}}</p>
         {{#each this.notes}}
-        
         <p>{{this.notes}}<button data-noteID="{{this._id}}" data-articleID="{{value._id}}" class="removeNote">X</button></p>
         {{/each}}
     </li>

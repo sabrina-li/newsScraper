@@ -22,7 +22,6 @@ app.use(express.static("public"))
  
 app.get('/',  async (req, res) => {
     const articles = await db.Article.find({}).sort({ publishedOn : -1 });
-    console.log(articles);
     res.render('articles',{articles:articles});
 });
 
@@ -39,13 +38,28 @@ app.get("/api/scrape", async (req,res)=>{
         // const update = await db.Article.updateOne({title:"Hong Kong Leader Suspends Controversial Extradition Bill"},{$set:{title:title,summery:summery,notes:[{notes:"asdf"}]}});
         const dbArticle = await db.Article.findOneAndUpdate({title:title},{$set:{title:title,summery:summery,publishedOn:new Date(time.replace("•",''))}}, { upsert : true , useFindAndModify : true});
     });//TODO: promise.all
+
+    //Mock slow response
+    // setTimeout(() => {
+    // }, 1000);
     res.send("Scrape Complete");
+    
 });
 app.post("/api/addnotes/:id", async (req,res)=>{
     //TODO: async error handling
     const id = req.params.id;
-    const update = await db.Article.updateOne({_id:id},{$push:{notes:{notes:req.body.note}}});
-    res.send("Note inserted");
+    await db.Article.updateOne({_id:id},{$push:{notes:{notes:req.body.note}}});
+    // res.send("Note inserted");
+    res.redirect('/');//redirect to initial page after insert notes
+});
+app.delete("/api/:articleid/:noteid", async (req,res,next)=>{
+    //TODO: async error handling
+    const noteID = req.params.noteid;
+    const articleID = req.params.articleid;
+
+    await db.Article.updateOne({_id:articleID},{$pull:{notes:{_id:noteID}}});
+
+    res.send("Note Deleted")
 });
 
 
