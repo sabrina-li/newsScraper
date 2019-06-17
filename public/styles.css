@@ -8,7 +8,9 @@ header{
 main{
     margin-top: 1.5rem;
 }
-
+.article-title{
+    color:hsl(217, 71%, 53%);
+}
 textarea{
     margin: 10px auto;
 }
