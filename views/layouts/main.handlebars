@@ -3,15 +3,26 @@
 <head>
     <meta charset="utf-8">
     <title>NRP News Scraper</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./styles.css">
+    
 </head>
 <body>
-    <h1>NPR News Scraper</h1>
-    <button id="scrape">Scrape Now</button>
+    <header>
+        <div class="container level">
+            <h1 class="level-left title is-1">NPR News Scraper</h1>
+            <button id="scrape" class="level-right subtitle button">Scrape Now</button>
+        </div>
+    </header>
 
     <main>
-        {{{body}}}
+        <div class="container">
+            {{{body}}}
+        </div>
     </main>
+    
+    <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
 
     <script style="text/javascript" src="./app.js"></script>
 </body>

@@ -14,6 +14,9 @@ const ArticleSchema = new Schema({
     publishedOn:{
         type:Date
     },
+    link:{
+        type:String
+    },
     notes:{
         type:[NoteSchema]
     }

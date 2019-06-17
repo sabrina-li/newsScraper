@@ -1,15 +1,17 @@
 <ul>
   {{#each articles as |value key|}}
-    <li>
-        <h3>{{this.title}}</h3>
+    <li class="box">
+        <h4 class="title is-4">{{this.title}}</h4>
         <p>{{this.summery}}</p>
+        <hr>
+        <h6 class="title is-6">Notes:</h6>
         {{#each this.notes}}
-        <p>{{this.notes}}<button data-noteID="{{this._id}}" data-articleID="{{value._id}}" class="removeNote">X</button></p>
+          <p >{{this.notes}}<button data-noteID="{{this._id}}" data-articleID="{{value._id}}" class="removeNote">X</button></p>
         {{/each}}
+        <form action="/api/addnotes/{{this._id}}" method="post">
+            <textarea class="textarea" rows ="1" type="text" name="note"></textarea>
+            <input class="button" type="submit" value="Submit">
+        </form>
     </li>
-    <form action="/api/addnotes/{{this._id}}" method="post">
-        <textarea type="text" name="note"></textarea>
-        <input type="submit" value="Submit">
-    </form>
   {{/each}}
 </ul>

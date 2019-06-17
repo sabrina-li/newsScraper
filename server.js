@@ -33,10 +33,11 @@ app.get("/api/scrape", async (req,res)=>{
         const title = $(element).find(".title").text();
         const summery = $(element).find(".teaser").text();
         const time = $(element).find(".teaser").find("time").text();
+        const link = $(element).find(".title").children("a").attr("href");
 
         // const dbArticle = await db.Article.create({title:title,summery:summery});
         // const update = await db.Article.updateOne({title:"Hong Kong Leader Suspends Controversial Extradition Bill"},{$set:{title:title,summery:summery,notes:[{notes:"asdf"}]}});
-        const dbArticle = await db.Article.findOneAndUpdate({title:title},{$set:{title:title,summery:summery,publishedOn:new Date(time.replace("•",''))}}, { upsert : true , useFindAndModify : true});
+        const dbArticle = await db.Article.findOneAndUpdate({title:title},{$set:{title:title,summery:summery,publishedOn:new Date(time.replace("•",'')),link:link}}, { upsert : true , useFindAndModify : true});
     });//TODO: promise.all
 
     //Mock slow response
